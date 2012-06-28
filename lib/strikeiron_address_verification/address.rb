@@ -40,6 +40,7 @@ module STRIKEIRON_ADDRESS_VERIFICATION
       rescue Exception => e
         @error = e.message
       end
+      #puts "#{@status.class} #{is_address_valid?}  - address: #{@street_address}"
     end
 
     def fire_request
@@ -49,7 +50,7 @@ module STRIKEIRON_ADDRESS_VERIFICATION
     end
 
     def is_address_valid?
-      @status != 304 && @status != 402
+      @status != '304' && @status != '402'
     end
 
     def prepare_payload
@@ -66,24 +67,3 @@ module STRIKEIRON_ADDRESS_VERIFICATION
   end
 
 end
-
-# == Schema Information
-#
-# Table name: address_verifications
-#
-#  id               :integer         not null, primary key
-#  order_id         :integer
-#  street_address   :string(255)     default(""), not null
-#  street_address_2 :string(255)     default("")
-#  city             :string(255)     default(""), not null
-#  state            :string(255)     default(""), not null
-#  zip_code         :string(255)     default(""), not null
-#  is_valid         :boolean         default(FALSE), not null
-#  status           :integer
-#  status_msg       :string(255)
-#  error            :string(255)
-#  response         :text
-#  created_at       :datetime
-#  updated_at       :datetime
-#
-
