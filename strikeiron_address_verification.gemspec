@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Turner"]
   s.date = "2012-06-28"
-  s.description = "TODO: longer description of your gem"
+  s.description = "Strike Iron Address Verification"
   s.email = "jturner@saveology.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -31,7 +31,8 @@ Gem::Specification.new do |s|
     "lib/strikeiron_address_verification/address.rb",
     "spec/spec_helper.rb",
     "spec/strikeiron_address_verification_spec.rb",
-    "spec/test.rb"
+    "spec/test.rb",
+    "strikeiron_address_verification.gemspec"
   ]
   s.homepage = "http://github.com/jturner954/strikeiron_address_verification"
   s.licenses = ["MIT"]
