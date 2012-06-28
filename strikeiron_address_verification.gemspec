@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "strikeiron_address_verification"
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Turner"]
@@ -26,7 +26,6 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "config/development.example.yaml",
-    "config/development.yaml",
     "lib/strikeiron_address_verification.rb",
     "lib/strikeiron_address_verification/address.rb",
     "spec/spec_helper.rb",
