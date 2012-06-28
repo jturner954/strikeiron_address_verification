@@ -18,7 +18,7 @@ Jeweler::Tasks.new do |gem|
   gem.homepage = "http://github.com/jturner954/strikeiron_address_verification"
   gem.license = "MIT"
   gem.summary = %Q{Strike Iron Address Verification}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.description = %Q{Strike Iron Address Verification}
   gem.email = "jturner@saveology.com"
   gem.authors = ["Jon Turner"]
   # dependencies defined in Gemfile
