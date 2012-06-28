@@ -8,5 +8,8 @@ require 'strikeiron_address_verification'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 RSpec.configure do |config|
-  
+  dev = File.join('config', 'development.yml')
+  YAML.load(File.open(dev)).each do |key, value|
+    ENV[key.to_s] = value
+  end if File.exists?(dev)
 end

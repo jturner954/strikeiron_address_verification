@@ -1,0 +1,7 @@
+STRIKEIRON_ADDRESS_VERIFICATION_ON: 'true'
+STRIKEIRON_ADDRESS_VERIFICATION_URL: 'http://ws.strikeiron.com/NAAddressVerification6/NorthAmericanAddressVerificationService/NorthAmericanAddressVerification'
+STRIKEIRON_USERID: 'fkaram@elephantgroup.com'
+STRIKEIRON_PW: 'ssellsat1i'
+STRIKEIRON_TIMEOUT: '3'
+STRIKEIRON_OPEN_TIMEOUT: '1'
+
