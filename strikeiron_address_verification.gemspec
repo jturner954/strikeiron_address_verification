@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "strikeiron_address_verification"
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Turner"]
-  s.date = "2012-06-28"
+  s.date = "2012-06-29"
   s.description = "Strike Iron Address Verification"
   s.email = "jturner@saveology.com"
   s.extra_rdoc_files = [
