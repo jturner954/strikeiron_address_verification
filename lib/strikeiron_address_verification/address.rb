@@ -16,6 +16,7 @@ module STRIKEIRON_ADDRESS_VERIFICATION
     end
 
     def verify(args)
+      # puts "#{@username} - #{@password} - #{@url} - #{@timeout} - #{@open_timeout}"
       @street_address = args[:street_address] if args[:street_address]
       @street_address_2 = args[:street_address_2] if args[:street_address_2]
       @city = args[:city] if args[:city]
