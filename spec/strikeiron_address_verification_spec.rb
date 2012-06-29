@@ -11,7 +11,7 @@ describe 'StrikeironAddressVerification' do
         config.open_timeout = open_timeout.to_i
       end
     end
-    subject { STRIKEIRON_ADDRESS_VERIFICATION::Address.new  }
+    subject { STRIKEIRON_ADDRESS_VERIFICATION::Address.new(args)  }
 
     let(:valid_username) { ENV['STRIKEIRON_USERID'] }
     let(:valid_password) { ENV['STRIKEIRON_PW'] }
@@ -24,6 +24,7 @@ describe 'StrikeironAddressVerification' do
     let(:invalid_url) { 'http://www.invalidurl.com/' }
     let(:invalid_timeout) {0}
     let(:invalid_open_timeout) {0}
+    let(:args) { {} }
 
     let(:valid_address_options){
       {
@@ -73,11 +74,11 @@ describe 'StrikeironAddressVerification' do
         subject.status_msg.should == ''
         #subject.error.should == ''
         subject.request.should == ''
-        subject.response.should == ''
+        #subject.response.should == ''
       end
 
       it 'should accept a verify request' do
-        subject.verify not_found_address_options
+        #subject.verify not_found_address_options
         subject.is_valid?.should be
       end
     end
@@ -92,8 +93,8 @@ describe 'StrikeironAddressVerification' do
       describe 'Invalid username password' do
         let(:username) { invalid_username }
         let(:password) { invalid_password }
+        let(:args){ not_found_address_options }
         it 'invalid username or password should deny access' do
-          subject.verify not_found_address_options
           subject.status.should_not be_kind_of(Integer)
           subject.response.should == '<WebServiceResponse xmlns="http://ws.strikeiron.com"><Error>Invalid user identification format.</Error></WebServiceResponse>'
           #subject.is_valid?.should_not be
@@ -103,8 +104,8 @@ describe 'StrikeironAddressVerification' do
       describe 'Invalid timeout configuration' do
         let(:timeout) {0}
         let(:open_timeout) {0}
+        let(:args){ valid_address_options }
         it 'should time out' do
-         subject.verify valid_address_options
          subject.error.should == 'Request Timeout'
         end
 
@@ -119,8 +120,8 @@ describe 'StrikeironAddressVerification' do
       let(:open_timeout) { valid_open_timeout }
 
       describe 'Verify a valid address' do
+        let(:args){ valid_address_options }
         it 'should accept a verify request for a valid address and return is_valid' do
-          subject.verify valid_address_options
           subject.is_valid?.should be
           subject.status.should == '200'
           subject.status_msg.should == 'Found'
@@ -128,8 +129,8 @@ describe 'StrikeironAddressVerification' do
       end
 
       describe 'Verify a invalid address - not found' do
+        let(:args){ not_found_address_options }
         it 'should accept a verify request for a invalid address' do
-          subject.verify not_found_address_options
           subject.is_valid?.should be_false
           subject.status.should == '304'
           subject.status_msg.should == 'Address Not Found'
@@ -137,8 +138,8 @@ describe 'StrikeironAddressVerification' do
       end
 
       describe 'Verify a invalid address - City or zip code not found' do
+        let(:args){ city_zip_not_found_address_options }
         it 'should accept a verify request for a valid address' do
-          subject.verify city_zip_not_found_address_options
           subject.is_valid?.should be_false
           subject.status.should == '402'
           subject.status_msg.should == 'City or ZIP Code is Invalid'

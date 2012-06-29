@@ -6,17 +6,13 @@ module STRIKEIRON_ADDRESS_VERIFICATION
   class Address
     attr_accessor :username, :password, :url, :timeout, :open_timeout
     attr_accessor :street_address, :street_address_2, :city, :state, :zip_code, :status, :status_msg, :error, :request, :response
-    def initialize
+    def initialize(args={})
       @username = STRIKEIRON_ADDRESS_VERIFICATION.username
       @password = STRIKEIRON_ADDRESS_VERIFICATION.password
       @url = STRIKEIRON_ADDRESS_VERIFICATION.url
       @timeout = STRIKEIRON_ADDRESS_VERIFICATION.timeout
       @open_timeout = STRIKEIRON_ADDRESS_VERIFICATION.open_timeout
       @street_address = @street_address_2 = @city = @state = @zip_code = @status = @status_msg = @request = @response = ''
-    end
-
-    def verify(args)
-      # puts "#{@username} - #{@password} - #{@url} - #{@timeout} - #{@open_timeout}"
       @street_address = args[:street_address] if args[:street_address]
       @street_address_2 = args[:street_address_2] if args[:street_address_2]
       @city = args[:city] if args[:city]
@@ -47,7 +43,7 @@ module STRIKEIRON_ADDRESS_VERIFICATION
     def fire_request
       # open_timeout: amount of time to open connection
       # timeout: amount of time to wait for response
-      @response = RestClient::Request.execute(:method => :post, :url => STRIKEIRON_ADDRESS_VERIFICATION.url, :payload => prepare_payload, :headers => {}, :timeout => STRIKEIRON_ADDRESS_VERIFICATION.timeout, :open_timeout => STRIKEIRON_ADDRESS_VERIFICATION.open_timeout)
+      @response = RestClient::Request.execute(:method => :post, :url => @url, :payload => prepare_payload, :headers => {}, :timeout => @timeout, :open_timeout => @open_timeout)
     end
 
     def is_address_valid?
@@ -56,8 +52,8 @@ module STRIKEIRON_ADDRESS_VERIFICATION
 
     def prepare_payload
       payload = {}
-      payload[:'LicenseInfo.RegisteredUser.UserID'] = STRIKEIRON_ADDRESS_VERIFICATION.username
-      payload[:'LicenseInfo.RegisteredUser.Password'] = STRIKEIRON_ADDRESS_VERIFICATION.password
+      payload[:'LicenseInfo.RegisteredUser.UserID'] = @username
+      payload[:'LicenseInfo.RegisteredUser.Password'] = @password
       payload[:'NorthAmericanAddressVerification.AddressLine1'] = @street_address
       payload[:'NorthAmericanAddressVerification.AddressLine2'] = @street_address_2
       payload[:'NorthAmericanAddressVerification.CityStateOrProvinceZIPOrPostalCode'] = "#{@city} #{@state} #{@zip_code}"
