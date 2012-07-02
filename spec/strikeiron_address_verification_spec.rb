@@ -7,8 +7,8 @@ describe 'StrikeironAddressVerification' do
         config.username = username
         config.password = password
         config.url = url
-        config.timeout = timeout.to_i
-        config.open_timeout = open_timeout.to_i
+        config.timeout = timeout
+        config.open_timeout = open_timeout
       end
     end
     subject { STRIKEIRON_ADDRESS_VERIFICATION::Address.new(args)  }
