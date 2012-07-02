@@ -5,7 +5,7 @@ require 'active_support/core_ext/string'
 module STRIKEIRON_ADDRESS_VERIFICATION
   class Address
     attr_accessor :username, :password, :url, :timeout, :open_timeout
-    attr_accessor :street_address, :street_address_2, :city, :state, :zip_code, :status, :status_msg, :error, :request, :response
+    attr_accessor :street_address, :street_address_2, :city, :state, :zip_code, :is_valid, :status, :status_msg, :error, :request, :response
     def initialize(args={})
       @username = STRIKEIRON_ADDRESS_VERIFICATION.username
       @password = STRIKEIRON_ADDRESS_VERIFICATION.password
@@ -13,16 +13,13 @@ module STRIKEIRON_ADDRESS_VERIFICATION
       @timeout = STRIKEIRON_ADDRESS_VERIFICATION.timeout.to_i
       @open_timeout = STRIKEIRON_ADDRESS_VERIFICATION.open_timeout.to_i
       @street_address = @street_address_2 = @city = @state = @zip_code = @status = @status_msg = @request = @response = ''
+      @is_valid = false
       @street_address = args[:street_address] if args[:street_address]
       @street_address_2 = args[:street_address_2] if args[:street_address_2]
       @city = args[:city] if args[:city]
       @state = args[:state] if args[:state]
       @zip_code = args[:zip_code] if args[:zip_code]
       process
-    end
-
-    def is_valid?
-      @is_valid || @error.present?
     end
 
     private
