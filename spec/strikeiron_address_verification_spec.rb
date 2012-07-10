@@ -86,6 +86,7 @@ describe 'StrikeironAddressVerification' do
           #subject.error.should == ''
           subject.request.should == ''
           subject.response.should == "<WebServiceResponse xmlns=\"http://ws.strikeiron.com\"><Error>Invalid user identification format.</Error></WebServiceResponse>"
+          subject.record_type.should == ''
         end
       end
 
@@ -105,6 +106,7 @@ describe 'StrikeironAddressVerification' do
           #subject.error.should == ''
           subject.request.should == ''
           subject.response.should == "<WebServiceResponse xmlns=\"http://ws.strikeiron.com\"><Error>Invalid user identification format.</Error></WebServiceResponse>"
+          subject.record_type.should == ''
         end
       end
     end
@@ -152,7 +154,7 @@ describe 'StrikeironAddressVerification' do
           subject.is_valid.should be
           subject.status.should == '200'
           subject.status_msg.should == 'Found'
-          subject.record_type == 'S'
+          subject.record_type.should == 'S'
         end
       end
       describe 'Verify a valid po address' do
@@ -161,7 +163,7 @@ describe 'StrikeironAddressVerification' do
           subject.is_valid.should be
           subject.status.should == '200'
           subject.status_msg.should == 'Found'
-          subject.record_type == 'P'
+          subject.record_type.should == 'P'
         end
       end
 

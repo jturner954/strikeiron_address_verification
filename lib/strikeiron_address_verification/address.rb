@@ -12,7 +12,7 @@ module STRIKEIRON_ADDRESS_VERIFICATION
       @url = STRIKEIRON_ADDRESS_VERIFICATION.url
       @timeout = STRIKEIRON_ADDRESS_VERIFICATION.timeout.to_i
       @open_timeout = STRIKEIRON_ADDRESS_VERIFICATION.open_timeout.to_i
-      @street_address = @street_address_2 = @city = @state = @zip_code = @status = @status_msg = @request = @response = ''
+      @street_address = @street_address_2 = @city = @state = @zip_code = @status = @status_msg = @request = @response = @record_type = ''
       @is_valid = false
       @street_address = args[:street_address] if args[:street_address]
       @street_address_2 = args[:street_address_2] if args[:street_address_2]
