@@ -5,7 +5,7 @@ require 'active_support/core_ext/string'
 module STRIKEIRON_ADDRESS_VERIFICATION
   class Address
     attr_accessor :username, :password, :url, :timeout, :open_timeout
-    attr_accessor :street_address, :street_address_2, :city, :state, :zip_code, :is_valid, :status, :status_msg, :error, :request, :response
+    attr_accessor :street_address, :street_address_2, :city, :state, :zip_code, :is_valid, :status, :status_msg, :error, :request, :response, :record_type
     def initialize(args={})
       @username = STRIKEIRON_ADDRESS_VERIFICATION.username
       @password = STRIKEIRON_ADDRESS_VERIFICATION.password
@@ -31,6 +31,7 @@ module STRIKEIRON_ADDRESS_VERIFICATION
         @status = hashed_response['ServiceStatus']['StatusNbr']
         @status_msg = hashed_response['ServiceStatus']['StatusDescription']
         @is_valid = is_address_valid?
+        @record_type = hashed_response['ServiceResult']['USAddress']['RecordType']
       rescue Exception => e
         @error = e.message
       end

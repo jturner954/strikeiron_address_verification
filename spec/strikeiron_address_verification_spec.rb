@@ -35,6 +35,15 @@ describe 'StrikeironAddressVerification' do
         :zip_code => '33063'
       }
     }
+    let(:valid_po_address_options){
+      {
+        :street_address => 'PO Box 55058',
+        :street_address_2 => '',
+        :city => 'Birmingham',
+        :state => 'AL',
+        :zip_code => '35255'
+      }
+    }
     let(:not_found_address_options){
       {
         :street_address => '987 NS 69th ct',
@@ -137,12 +146,22 @@ describe 'StrikeironAddressVerification' do
       let(:timeout) { valid_timeout }
       let(:open_timeout) { valid_open_timeout }
 
-      describe 'Verify a valid address' do
+      describe 'Verify a valid street address' do
         let(:args){ valid_address_options }
         it 'should accept a verify request for a valid address and return is_valid' do
           subject.is_valid.should be
           subject.status.should == '200'
           subject.status_msg.should == 'Found'
+          subject.record_type == 'S'
+        end
+      end
+      describe 'Verify a valid po address' do
+        let(:args){ valid_po_address_options }
+        it 'should accept a verify request for a valid address and return is_valid' do
+          subject.is_valid.should be
+          subject.status.should == '200'
+          subject.status_msg.should == 'Found'
+          subject.record_type == 'P'
         end
       end
 
