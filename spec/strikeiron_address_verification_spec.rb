@@ -63,7 +63,7 @@ describe 'StrikeironAddressVerification' do
       }
     }
 
-    context 'Initialize' do
+    describe 'initialize' do
       let(:username) { invalid_username }
       let(:password) { invalid_password }
       let(:url) { valid_url }
@@ -71,7 +71,7 @@ describe 'StrikeironAddressVerification' do
       let(:open_timeout) { valid_open_timeout }
 
       context 'with empty args' do
-        it 'should initialize' do
+        it 'does initialize' do
           subject.username.should == invalid_username
           subject.password.should == invalid_password
           subject.url.should == valid_url
@@ -92,7 +92,7 @@ describe 'StrikeironAddressVerification' do
 
       context 'with args' do
         let(:args){ valid_address_options }
-        it 'should initialize' do
+        it 'does initialize' do
           subject.username.should == invalid_username
           subject.password.should == invalid_password
           subject.url.should == valid_url
@@ -111,55 +111,55 @@ describe 'StrikeironAddressVerification' do
       end
     end
 
-    context 'Invalid configuration' do
+    describe 'verification with invalid configuration' do
       let(:username) { valid_username }
       let(:password) { valid_password }
       let(:url) { valid_url }
       let(:timeout) { valid_timeout }
       let(:open_timeout) { valid_open_timeout }
 
-      describe 'Invalid username password' do
+      context 'invalid username password' do
         let(:username) { invalid_username }
         let(:password) { invalid_password }
         let(:args){ not_found_address_options }
-        it 'invalid username or password should deny access' do
+        it 'denies access for invalid username and password' do
           subject.status.should_not be_kind_of(Integer)
           subject.response.should == '<WebServiceResponse xmlns="http://ws.strikeiron.com"><Error>Invalid user identification format.</Error></WebServiceResponse>'
           subject.is_valid.should_not be
         end
       end
 
-      describe 'Invalid timeout configuration' do
+      context 'invalid timeout configuration' do
         let(:timeout) {0}
         let(:open_timeout) {0}
         let(:args){ valid_address_options }
-        it 'should time out' do
+        it 'times out' do
           subject.error.should == 'Request Timeout'
           subject.is_valid.should_not be
         end
-
       end
     end
 
-    context 'Verification with valid config data' do
+    describe 'verification with valid configuration' do
       let(:username) { valid_username }
       let(:password) { valid_password }
       let(:url) { valid_url }
       let(:timeout) { valid_timeout }
       let(:open_timeout) { valid_open_timeout }
 
-      describe 'Verify a valid street address' do
+      context 'verify a valid street address' do
         let(:args){ valid_address_options }
-        it 'should accept a verify request for a valid address and return is_valid' do
+        it 'returns found with a record type of street' do
           subject.is_valid.should be
           subject.status.should == '200'
           subject.status_msg.should == 'Found'
           subject.record_type.should == 'S'
         end
       end
-      describe 'Verify a valid po address' do
+
+      context 'verify a valid po address' do
         let(:args){ valid_po_address_options }
-        it 'should accept a verify request for a valid address and return is_valid' do
+        it 'returns found with a record type of PO Box' do
           subject.is_valid.should be
           subject.status.should == '200'
           subject.status_msg.should == 'Found'
@@ -167,18 +167,18 @@ describe 'StrikeironAddressVerification' do
         end
       end
 
-      describe 'Verify a invalid address - not found' do
+      context 'verify a invalid address - not found' do
         let(:args){ not_found_address_options }
-        it 'should accept a verify request for a invalid address' do
+        it 'returns address not found' do
           subject.is_valid.should be_false
           subject.status.should == '304'
           subject.status_msg.should == 'Address Not Found'
         end
       end
 
-      describe 'Verify a invalid address - City or zip code not found' do
+      context 'verify a invalid address - City or zip code not found' do
         let(:args){ city_zip_not_found_address_options }
-        it 'should accept a verify request for a valid address' do
+        it 'returns city or zip is invalid' do
           subject.is_valid.should be_false
           subject.status.should == '402'
           subject.status_msg.should == 'City or ZIP Code is Invalid'
