@@ -182,6 +182,7 @@ describe 'StrikeironAddressVerification' do
           subject.is_valid.should be_false
           subject.status.should == '402'
           subject.status_msg.should == 'City or ZIP Code is Invalid'
+          subject.error.should == ''
         end
       end
     end
